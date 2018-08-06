@@ -1,3 +1,6 @@
+
+1、custom_components/remote:
+
 The xiaomi air condition partner remote platform allows you to send IR commands from your Xiaomi Air Condition partner.
 
 Please follow the instructions on Retrieving the Access Token to get the API token to use in the configuration.yaml file.
@@ -42,3 +45,12 @@ command
 
 Other configures same as Xiaomi IR Remote:
 https://www.home-assistant.io/components/remote.xiaomi_miio/
+
+2、readkey.py
+通过Python的方式让空调伴侣学习遥控码，不过我是把整个python-miio的工程
+下载到本地来运行的，直接pip3安装的好像有问题，求python高手指点。
+本文件与主题无直接关系，非技术人员请忽略。
+
+3、xiaomi2script.py
+借楼保存一下，这个是将从手机上拷贝的米家的空调遥控码转换为小米万能遥控能使用的script使用的一个脚本，请忽略。
+
