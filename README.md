@@ -1,4 +1,13 @@
-首先添加空调伴侣的设置项：
+### 主要功能
+
+实现通过空调伴侣控制其他电器。
+
+### 设置方法
+
+* 将xiaomi_acpartner_remote拷贝到home assistant配置目录下的custom_components目录中；
+* 添加空调伴侣红外遥控器的的设置项：
+
+``` yaml
 remote:
   - platform: xiaomi_acpartner_remote
     host: 192.168.2.xxx
@@ -7,9 +16,11 @@ remote:
     slot: 30
     timeout: 30
     hidden: false
+```
 
+  - 配置script，实现指定脚本发送红外遥控码控制电器，例子如下：
 
-其次配置script：
+``` yaml
 script:
   bedroom_letv_power:  #红外序列
     sequence:
@@ -35,18 +46,29 @@ script:
         data_template:
           entity_id: remote.bedroom_remote
           command: "FE00000000000094701FFF96FF090024270900310038004000AA00DC01B70389102B13886511111313111103101311131111131301111301231111101103010311131303031764180D"  
+```
 
-模拟开关，请参考小米万能遥控：https://www.home-assistant.io/components/remote.xiaomi_miio/
+* 可使用script实现模拟开关，请参考小米万能遥控：https://www.home-assistant.io/components/remote.xiaomi_miio/
 
-2、readkey.py
+### readkey.py使用
 通过Python的方式让空调伴侣学习遥控码
-1、首先安装miio组件
-     pip3 install python-miio
-2、开始使用
-     python readkey.py
-     (注意，如果你的系统中同时存在python2和python3，你可能等使用python3 readkey.py)
+* 首先安装miio组件
+
+``` shell
+pip3 install python-miio
+```
+
+* 使用方法
+
+``` shell
+python readkey.py
+```
+
+ (注意，如果你的系统中同时存在python2和python3，你可能得使用python3 readkey.py)
 然后每次按下一个按键，将显示一行输出，输出内容即是下方所需要的红外码（忽略多余的['ok']行）
 比如：
+
+``` shell
 C:\Data>python readkey.py
 <AirConditioningCompanionStatus power=on, load_power=784, air_condition_model=01
 0505770001179701, model_format=1, device_type=5,air_condition_brand=577,air_cond
@@ -66,7 +88,8 @@ FE00000000000094701FFF96FF080026270a003600AC00DE01C603861032138825C7430000010100
 0001000100010000010100010101010000000000000000010101010542074206C1
 ['ok']
 ['ok']
+```
 
-3、xiaomi2script.py
+#### xiaomi2script.py使用
 将从手机上拷贝的米家的空调遥控码转换为小米万能遥控能使用的script使用的一个脚本
 
