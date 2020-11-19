@@ -14,7 +14,7 @@ import voluptuous as vol
 
 from homeassistant.components.remote import (
     PLATFORM_SCHEMA, DOMAIN, ATTR_NUM_REPEATS, ATTR_DELAY_SECS,
-    DEFAULT_DELAY_SECS, RemoteDevice)
+    DEFAULT_DELAY_SECS, RemoteEntity)
 from homeassistant.const import (
     CONF_NAME, CONF_HOST, CONF_TOKEN, CONF_TIMEOUT,
     ATTR_ENTITY_ID, ATTR_HIDDEN, CONF_COMMAND)
@@ -22,11 +22,9 @@ from homeassistant.exceptions import PlatformNotReady
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util.dt import utcnow
 
-REQUIREMENTS = ['python-miio==0.4.0', 'construct==2.9.41']
-
 _LOGGER = logging.getLogger(__name__)
 
-SERVICE_LEARN = 'xiaomi_miio_learn_command'
+SERVICE_LEARN = 'xiaomi_acpartner_learn_command'
 DATA_KEY = 'remote.xiaomi_acpartner'
 
 CONF_SLOT = 'slot'
@@ -145,7 +143,7 @@ def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
         hass.components.persistent_notification.async_create("Timeout. No infrared command captured", title='Xiaomi Miio Remote')
     hass.services.async_register(DOMAIN, SERVICE_LEARN, async_service_handler, schema=LEARN_COMMAND_SCHEMA)
 
-class XiaomiMiioRemote(RemoteDevice):
+class XiaomiMiioRemote(RemoteEntity):
     """Representation of a Xiaomi Miio Remote device."""
 
     def __init__(self, friendly_name, device, unique_id,

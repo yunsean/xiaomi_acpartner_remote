@@ -1,0 +1,11 @@
+{
+  "domain": "xiaomi_acpartner_remote",
+  "name": "Xiaomi Acpartner Remote",
+  "documentation": "",
+  "requirements": ["python-miio>=0.4.0", 
+  				   "construct>=2.9.41"],
+  "dependencies": [],
+  "codeowners": [
+    "@dylan"
+  ]
+}
